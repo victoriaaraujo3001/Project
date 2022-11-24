@@ -14,7 +14,7 @@ class UserServices {
     const uniqueUser = await users.findOne({
       where: { login: login, password: password },
     });
-
+    
     return uniqueUser;
   }
 }

@@ -1,4 +1,4 @@
-const UserServices = require("../services/user.service");
+const UserServices = require("../services/user.services");
 
 class UserControllers {
   async InsertUser(req, res, next) {
