@@ -6,6 +6,7 @@ class GenerosServices {
     const listGeneros = await generos.findAll();
     const names = listGeneros.map((item) => {
       return {
+        id: item.id,
         categoria: item.nome,
       };
     });

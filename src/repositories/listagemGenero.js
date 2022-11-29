@@ -6,7 +6,8 @@ async function FilterGenero(id) {
     `SELECT 
     t1.nome AS nome,
     t1.preco,
-    t1.cod_livro AS código,
+    t1.cod_livro AS codigo,
+    t1.capa,
     t2.nome as genero
     FROM mangas as t1
     LEFT JOIN generos as t2 ON t1.id_categoria = t2.id_genero

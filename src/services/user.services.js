@@ -1,10 +1,10 @@
 const users = require("../schemas/users");
 
 class UserServices {
-  async InsertUserService({ login, mail, password }) {
+  async InsertUserService({ login, email, password }) {
     const user = await users.create({
       login: login,
-      email: mail,
+      email: email,
       password: password,
       status: "1",
     });

@@ -7,15 +7,15 @@ class MangasServices {
   }
 
   async RegisterManga({ nome, preco, qntd_estoque, categoria }) {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 8888 - 1000)) + 2000
-    
+    const code = Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000)) + 1000;
+
     const register = await mangas.create({
       nome: nome,
       preco: preco,
       qntd_estoque: qntd_estoque,
       id_categoria: categoria,
       cod_livro: code,
-      status: 1 
+      status: 1,
     });
     return register;
   }

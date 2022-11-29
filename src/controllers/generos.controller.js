@@ -15,8 +15,8 @@ class GenerosControllers {
     try {
       const { id } = req.params;
 
-      const oneGeneros = await generosService.GetOneGenero(id);
-      res.status(200).send(oneGeneros);
+      const oneGenero = await generosService.GetOneGenero(id);
+      res.status(200).send(oneGenero);
     } catch (error) {
       res
         .status(error.status || 500)
