@@ -1,4 +1,5 @@
 const users = require("../schemas/users");
+const tokenServices = require("../services/token.services");
 
 class UserServices {
   async InsertUserService({ login, email, password }) {
@@ -15,7 +16,9 @@ class UserServices {
       where: { login: login, password: password },
     });
     
-    return uniqueUser;
+    const token = await tokenServices.generateToken({uniqueUser})
+
+    return {User: uniqueUser.login, token};
   }
 }
 

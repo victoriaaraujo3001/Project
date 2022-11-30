@@ -16,7 +16,7 @@ class UserControllers {
     try {
       const findUser = await UserServices.FindByUser(req.body);
 
-      res.status(200).send({ message: "Usuario encontrado" });
+      res.status(200).send(findUser);
     } catch (error) {
       res
         .status(error.status || 500)
