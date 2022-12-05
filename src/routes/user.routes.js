@@ -4,7 +4,7 @@ const ValidadeRegistration = require("../validation/registerUser.validation");
 const ValidationToken = require("../validation/token.validation");
 
 module.exports = (server, routes) => {
-  routes.post("/user/register", ValidationToken,ValidadeRegistration, UserController.InsertUser);
+  routes.post("/user/register",ValidadeRegistration, UserController.InsertUser);
   routes.post("/user/auth", ValidadeUser, UserController.FindUser);
   server.use(routes);
 };

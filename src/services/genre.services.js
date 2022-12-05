@@ -1,4 +1,4 @@
-const generos = require("../schemas/generos");
+const generos = require("../schemas/genre");
 const FilterGenero = require("../repositories/listagemGenero");
 
 class GenerosServices {

@@ -24,6 +24,7 @@ async function ValidadeRegistration(req, res, next) {
     return next();
   } catch (error) {
     res.status(error.status || 500).send({ error: error.message });
+    console.log("aqui")
   }
 }
 

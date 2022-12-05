@@ -1,4 +1,4 @@
-const generosService = require("../services/generos.services");
+const generosService = require("../services/genre.services");
 
 class GenerosControllers {
   async listGeneros(req, res, next) {
