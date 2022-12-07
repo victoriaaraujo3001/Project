@@ -19,6 +19,10 @@ class MangasServices {
     });
     return register;
   }
+  async PromotionsMangas(){
+    const promotions = await mangas.findAll({where: { desconto: 1 }})
+    return promotions;
+  }
 }
 
 module.exports = new MangasServices();

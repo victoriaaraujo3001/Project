@@ -19,7 +19,8 @@ const pedidos = sequelize.define(
       },
       preco_manga: DataTypes.FLOAT,
       desconto: DataTypes.INTEGER,
-      valor_desconto: DataTypes.INTEGER,  
+      valor_desconto: DataTypes.INTEGER,
+      status: DataTypes.INTEGER
     },
     { timestamps: false }
   );
