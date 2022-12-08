@@ -15,10 +15,13 @@ class UserServices {
     const uniqueUser = await users.findOne({
       where: { login: login, password: password },
     });
-    
-    const token = await tokenServices.generateToken({uniqueUser})
 
-    return {User: uniqueUser.login, token};
+    const token = await tokenServices.generateToken({
+      id_user: uniqueUser.id,
+      login: uniqueUser.login,
+    });
+
+    return { user:{ id: uniqueUser.id, login: uniqueUser.login}, token };
   }
 }
 

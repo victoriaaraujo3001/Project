@@ -12,6 +12,7 @@ const mangas = sequelize.define(
       },
       id_categoria: DataTypes.STRING,
       nome: DataTypes.STRING,
+      capa: DataTypes.STRING,
       preco: DataTypes.FLOAT,
       qntd_estoque: DataTypes.INTEGER,
       cod_livro: DataTypes.INTEGER,

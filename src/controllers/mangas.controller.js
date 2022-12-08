@@ -10,6 +10,16 @@ class MangasController {
       res.status(error.status || 500).send({ message: error.message });
     }
   }
+  async FindManga(req, res, next) {
+    try {
+      const { cod } = req.params;
+      const manga = await mangasServices.FindMangaByCod(cod);
+
+      res.status(200).send(manga);
+    } catch (error) {
+      res.status(error.status || 500).send({ message: error.message });
+    }
+  }
   async Register(req, res, next) {
     try {
       const registeredManga = await mangasServices.RegisterManga(req.body);

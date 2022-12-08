@@ -5,7 +5,10 @@ class MangasServices {
     const allMangas = await mangas.findAll();
     return allMangas;
   }
-
+  async FindMangaByCod(cod){
+    const manga = await mangas.findOne({where: {cod_livro : cod}})
+    return manga;
+  }
   async RegisterManga({ nome, preco, qntd_estoque, categoria }) {
     const code = Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000)) + 1000;
 
