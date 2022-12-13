@@ -46,6 +46,14 @@ class MangasController {
       res.status(error.status || 500).send({ message: error.message });
     }
   }
+  async Favorites(req, res, next) {
+    try {
+      const favorites = await mangasServices.FavoritesMangas();
+      res.status(200).send(favorites);
+    } catch (error) {
+      res.status(error.status || 500).send({ message: error.message });
+    }
+  }
 }
 
 module.exports = new MangasController();

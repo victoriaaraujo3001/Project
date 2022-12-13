@@ -6,12 +6,12 @@ class MangasServices {
     return allMangas;
   }
   async FindMangaByCod(cod){
-    const manga = await mangas.findOne({where: {cod_livro : cod}})
-    return manga;
+    const mangaBycod = await mangas.findOne({where: {cod_livro : cod}})
+    return mangaBycod;
   }
   async FindMangaById(id){
-    const manga = await mangas.findByPk(id)
-    return manga;
+    const mangaById = await mangas.findByPk(id)
+    return mangaById;
   }
   async RegisterManga({ nome, preco, qntd_estoque, categoria }) {
     const code = Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000)) + 1000;
@@ -29,6 +29,10 @@ class MangasServices {
   async PromotionsMangas(){
     const promotions = await mangas.findAll({where: { desconto: 1 }})
     return promotions;
+  }
+  async FavoritesMangas(){
+    const favorites = await mangas.findAll({where: { favorite: 1 }})
+    return favorites;
   }
 }
 

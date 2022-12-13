@@ -7,5 +7,6 @@ module.exports = (server, routes) => {
   routes.get("/manga/:id", MangasController.FindMangaById);
   routes.post("/register", MangasController.Register);
   routes.get("/promotions", MangasController.Promotions);
+  routes.get("/favorites", MangasController.Favorites);
   server.use(routes);
 };
