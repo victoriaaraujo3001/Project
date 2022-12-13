@@ -1,8 +1,9 @@
+const FindRequest = require("../repositories/findAllRequest");
 const pedidos = require("../schemas/requests");
 
 class RequestServices {
   async GetAllRequests() {
-    const list = await pedidos.findAll();
+    const list = await FindRequest();
     return list;
   }
   async AddRequest({ id_manga, preco_manga, qtde_unidades, total_compra }) {
@@ -21,6 +22,15 @@ class RequestServices {
       status: 1,
     });
     return register;
+  }
+  async FinalizeOrder(id) {
+    const request = await pedidos.update(
+      {
+        status: 3,
+      },
+      { where: { id_pedido: id } }
+    );
+    return request;
   }
 }
 

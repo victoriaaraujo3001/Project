@@ -19,7 +19,7 @@ class UserControllers {
       res.status(200).send(findUser);
     } catch (error) {
       res
-        .status(error.status || 500)
+        .status(error.status || 404)
         .send({ message: "Usuário não encontrado/inválido" });
       console.log(error.message);
     }
