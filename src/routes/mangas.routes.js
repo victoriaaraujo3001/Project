@@ -8,5 +8,6 @@ module.exports = (server, routes) => {
   routes.post("/register", MangasController.Register);
   routes.get("/promotions", MangasController.Promotions);
   routes.get("/favorites", MangasController.Favorites);
+  routes.get("/disfavor/:cod", MangasController.Disfavor);
   server.use(routes);
 };

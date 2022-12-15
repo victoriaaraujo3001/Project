@@ -8,8 +8,8 @@ class RequestServices {
   }
   async AddRequest({ id_manga, preco_manga, qtde_unidades, total_compra }) {
     const numberPedido =
-      Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000)) + 1000;
-
+      Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000 + 9999 - 1000)) + 9999;
+    console.log(numberPedido);
     const register = await pedidos.create({
       id_pedido: numberPedido,
       id_user: 2,
@@ -24,13 +24,30 @@ class RequestServices {
     return register;
   }
   async FinalizeOrder(id) {
-    const request = await pedidos.update(
+    const finalizeOrder = await pedidos.update(
       {
         status: 3,
       },
       { where: { id_pedido: id } }
     );
-    return request;
+    return finalizeOrder;
+  }
+  async PendingOrders() {
+    const pendingOrder = await pedidos.findAll({ where: { status: 1 } });
+    return pendingOrder;
+  }
+  async FinishedOrders() {
+    const finishedOrder = await pedidos.findAll({ where: { status: 3 } });
+    return finishedOrder;
+  }
+  async DeleteOrder(id) {
+    const deleteOrder = await pedidos.update(
+      {
+        status: 2,
+      },
+      { where: { id_pedido: id } }
+    );
+    return deleteOrder;
   }
 }
 

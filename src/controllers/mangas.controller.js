@@ -54,6 +54,17 @@ class MangasController {
       res.status(error.status || 500).send({ message: error.message });
     }
   }
+  async Disfavor(req, res, next) {
+    try {
+      const { cod } = req.params;
+      const disfavor = await mangasServices.DisfavorManga(cod);
+      res.status(200).send({ message: "Retirado da lista de favoritos" });
+    } catch (error) {
+      res
+        .status(error.status || 500)
+        .send({ message: error.message, description: error.description });
+    }
+  }
 }
 
 module.exports = new MangasController();

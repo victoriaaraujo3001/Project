@@ -5,16 +5,18 @@ class MangasServices {
     const allMangas = await mangas.findAll();
     return allMangas;
   }
-  async FindMangaByCod(cod){
-    const mangaBycod = await mangas.findOne({where: {cod_livro : cod}})
+  async FindMangaByCod(cod) {
+    const mangaBycod = await mangas.findOne({ where: { cod_livro: cod } });
     return mangaBycod;
   }
-  async FindMangaById(id){
-    const mangaById = await mangas.findByPk(id)
+  async FindMangaById(id) {
+    const mangaById = await mangas.findByPk(id);
     return mangaById;
   }
   async RegisterManga({ nome, preco, qntd_estoque, categoria }) {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000)) + 1000;
+    const code =
+      Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000 + 9999 - 1000)) +
+      9999;
 
     const register = await mangas.create({
       nome: nome,
@@ -26,13 +28,22 @@ class MangasServices {
     });
     return register;
   }
-  async PromotionsMangas(){
-    const promotions = await mangas.findAll({where: { desconto: 1 }})
+  async PromotionsMangas() {
+    const promotions = await mangas.findAll({ where: { desconto: 1 } });
     return promotions;
   }
-  async FavoritesMangas(){
-    const favorites = await mangas.findAll({where: { favorite: 1 }})
+  async FavoritesMangas() {
+    const favorites = await mangas.findAll({ where: { favorite: 1 } });
     return favorites;
+  }
+  async DisfavorManga(cod) {
+    const disfavor = await mangas.update(
+      {
+        favorite: 0,
+      },
+      { where: { cod_livro: cod } }
+    );
+    return disfavor;
   }
 }
 
