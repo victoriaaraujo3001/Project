@@ -1,3 +1,4 @@
+const favorites = require("../schemas/favorites");
 const mangas = require("../schemas/mangas");
 
 class MangasServices {
@@ -32,18 +33,34 @@ class MangasServices {
     const promotions = await mangas.findAll({ where: { desconto: 1 } });
     return promotions;
   }
-  async FavoritesMangas() {
-    const favorites = await mangas.findAll({ where: { favorite: 1 } });
-    return favorites;
+  async FavoritesMangas(id_user) {
+    const favorite = await favorites.findAll({
+      where: { id_user: id_user, status: 1 },
+    });
+    console.log(id_user);
+    return favorite;
   }
-  async DisfavorManga(cod) {
-    const disfavor = await mangas.update(
+  async Favorite(id_user, id_manga) {
+    const favoriteManga = await favorites.create({
+      id_user: id_user,
+      id_manga: id_manga,
+      status: 1,
+    });
+    return favoriteManga;
+  }
+  async Disfavor(id_user, id_manga) {
+    const favoriteManga = await favorites.update(
       {
-        favorite: 0,
+        status: 2,
       },
-      { where: { cod_livro: cod } }
+      {
+        where: {
+          id_user: id_user,
+          id_manga: id_manga,
+        },
+      }
     );
-    return disfavor;
+    return favoriteManga;
   }
 }
 

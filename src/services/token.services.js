@@ -4,7 +4,7 @@ const { sign } = require("jsonwebtoken");
 class TokenService {
   async generateToken(info) {
     return sign(info, process.env.SECRET, {
-      expiresIn: 300, //5min
+      expiresIn: "1h", //1hora
     });
   }
   async validateToken() {

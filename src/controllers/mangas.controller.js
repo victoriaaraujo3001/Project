@@ -48,16 +48,19 @@ class MangasController {
   }
   async Favorites(req, res, next) {
     try {
-      const favorites = await mangasServices.FavoritesMangas();
+      const { id_user } = req.infoToken;
+      console.log("🚀 ~ file: mangas.controller.js:52 ~ MangasController ~ Favorites ~ id_user", id_user)
+      const favorites = await mangasServices.FavoritesMangas(id_user);
+      
       res.status(200).send(favorites);
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
     }
   }
-  async Disfavor(req, res, next) {
+  async DisfavorManga(req, res, next) {
     try {
       const { cod } = req.params;
-      const disfavor = await mangasServices.DisfavorManga(cod);
+      const disfavor = await mangasServices.Disfavor(cod);
       res.status(200).send({ message: "Retirado da lista de favoritos" });
     } catch (error) {
       res
