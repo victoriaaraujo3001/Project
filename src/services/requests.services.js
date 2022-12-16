@@ -2,17 +2,20 @@ const FindRequest = require("../repositories/findAllRequest");
 const pedidos = require("../schemas/requests");
 
 class RequestServices {
-  async GetAllRequests() {
-    const list = await FindRequest();
+  async GetAllRequests(id_user) {
+    const list = await FindRequest(id_user);
     return list;
   }
-  async AddRequest({ id_manga, preco_manga, qtde_unidades, total_compra }) {
+  async AddRequest(
+    id_user,
+    { id_manga, preco_manga, qtde_unidades, total_compra }
+  ) {
     const numberPedido =
-      Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000 + 9999 - 1000)) + 9999;
-    console.log(numberPedido);
+      Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000 + 9999 - 1000)) +
+      9999;
     const register = await pedidos.create({
       id_pedido: numberPedido,
-      id_user: 2,
+      id_user: id_user,
       id_manga: id_manga,
       preco_manga: preco_manga,
       qtde_unidades: qtde_unidades,
@@ -21,6 +24,10 @@ class RequestServices {
       total_compra: total_compra,
       status: 1,
     });
+    console.log(
+      "🚀 ~ file: requests.services.js:23 ~ RequestServices ~ AddRequest ~ register",
+      register
+    );
     return register;
   }
   async FinalizeOrder(id) {

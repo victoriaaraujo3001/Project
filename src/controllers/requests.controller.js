@@ -3,7 +3,8 @@ const requestServices = require("../services/requests.services");
 class RequestsControllers {
   async listRequests(req, res, next) {
     try {
-      const allRequests = await requestServices.GetAllRequests();
+      const { id_user } = req.infoToken;
+      const allRequests = await requestServices.GetAllRequests(id_user);
       res.status(200).send(allRequests);
     } catch (error) {
       res
@@ -13,7 +14,8 @@ class RequestsControllers {
   }
   async AddRequests(req, res, next) {
     try {
-      const addRequest = await requestServices.AddRequest(req.body);
+      const { id_user } = req.infoToken;
+      const addRequest = await requestServices.AddRequest(id_user,req.body);
       res.status(201).send({ message: "Pedido adicionado com sucesso" });
     } catch (error) {
       res

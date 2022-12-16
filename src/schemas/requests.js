@@ -13,9 +13,6 @@ const pedidos = sequelize.define(
     id_pedido: DataTypes.INTEGER,
     id_user: DataTypes.INTEGER,
     id_manga: {
-      allowNull: false,
-      foreignKey: true,
-      autoIncrement: false,
       type: DataTypes.INTEGER,
     },
     preco_manga: DataTypes.FLOAT,

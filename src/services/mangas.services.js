@@ -1,3 +1,5 @@
+const Disfavor = require("../repositories/disfavor");
+const Favorites = require("../repositories/favorites");
 const favorites = require("../schemas/favorites");
 const mangas = require("../schemas/mangas");
 
@@ -34,10 +36,7 @@ class MangasServices {
     return promotions;
   }
   async FavoritesMangas(id_user) {
-    const favorite = await favorites.findAll({
-      where: { id_user: id_user, status: 1 },
-    });
-    console.log(id_user);
+    const favorite = await Favorites(id_user);
     return favorite;
   }
   async Favorite(id_user, id_manga) {
@@ -48,19 +47,9 @@ class MangasServices {
     });
     return favoriteManga;
   }
-  async Disfavor(id_user, id_manga) {
-    const favoriteManga = await favorites.update(
-      {
-        status: 2,
-      },
-      {
-        where: {
-          id_user: id_user,
-          id_manga: id_manga,
-        },
-      }
-    );
-    return favoriteManga;
+  async DisfavorManga(id_manga, id_user) {
+    const disfavor = await Disfavor(id_manga, id_user);
+    return disfavor;
   }
 }
 
