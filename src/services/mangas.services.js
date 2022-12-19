@@ -1,4 +1,5 @@
 const Disfavor = require("../repositories/disfavor");
+const FavoritesMangas = require("../repositories/favorites");
 const Favorites = require("../repositories/favorites");
 const favorites = require("../schemas/favorites");
 const mangas = require("../schemas/mangas");
@@ -8,9 +9,13 @@ class MangasServices {
     const allMangas = await mangas.findAll();
     return allMangas;
   }
-  async FindMangaByCod(cod) {
+  async FindMangaByCod(cod, id_user) {
     const mangaBycod = await mangas.findOne({ where: { cod_livro: cod } });
-    return mangaBycod;
+    const favorite = await FavoritesMangas(id_user, mangaBycod.id);
+    return {
+      ...mangaBycod.dataValues,
+      favorite: !!favorite.length,
+    };
   }
   async FindMangaById(id) {
     const mangaById = await mangas.findByPk(id);
@@ -39,17 +44,27 @@ class MangasServices {
     const favorite = await Favorites(id_user);
     return favorite;
   }
-  async Favorite(id_user, id_manga) {
-    const favoriteManga = await favorites.create({
-      id_user: id_user,
-      id_manga: id_manga,
-      status: 1,
-    });
-    return favoriteManga;
+  async Favorite(id_user, id_manga, actionFavorite) {
+    const favorite = await FavoritesMangas(id_user, id_manga);
+
+    if (actionFavorite == 'true') {
+        return  await this.DisfavorManga(id_manga, id_user);
+    }
+
+    if (!favorite.length) {
+        await favorites.create({
+        id_user: id_user,
+        id_manga: id_manga,
+        status: 1,
+      });
+      return true;
+    }
+
+    return true;
   }
   async DisfavorManga(id_manga, id_user) {
     const disfavor = await Disfavor(id_manga, id_user);
-    return disfavor;
+    return disfavor[1] == 0 ? false : true;
   }
 }
 

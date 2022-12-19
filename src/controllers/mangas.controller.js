@@ -13,7 +13,8 @@ class MangasController {
   async FindManga(req, res, next) {
     try {
       const { cod } = req.params;
-      const manga = await mangasServices.FindMangaByCod(cod);
+      const { id_user } = req.infoToken;
+      const manga = await mangasServices.FindMangaByCod(cod, id_user);
       res.status(200).send(manga);
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
@@ -59,9 +60,14 @@ class MangasController {
   async AddFavorite(req, res, next) {
     try {
       const { id_user } = req.infoToken;
-      const { id_manga } = req.params;
-      const favorite = await mangasServices.Favorite(id_user,id_manga);
-
+      const { id_manga, actionFavorite } = req.params;
+      console.log(
+        "🚀 ~ file: mangas.controller.js:73 ~ MangasController ~ AddFavorite ~ id_user",
+        id_user,
+        "~ id",
+        id_manga
+      );
+      const favorite = await mangasServices.Favorite(id_user, id_manga, actionFavorite);
       res.status(201).send(favorite);
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
@@ -73,7 +79,7 @@ class MangasController {
       const { id_user } = req.infoToken;
       const disfavor = await mangasServices.DisfavorManga(id, id_user);
 
-      res.status(200).send({ message: "Retirado da lista de favoritos" });
+      res.status(200).send(disfavor);
     } catch (error) {
       res
         .status(error.status || 500)
