@@ -10,9 +10,21 @@ module.exports = (server, routes) => {
     ResquestController.AddRequests
   );
   routes.get("/requests", ValidationToken, ResquestController.listRequests);
-  routes.get("/finalizeOrder/:id", ResquestController.Finalize);
-  routes.get("/allFinishedOrders", ResquestController.AllFinishedOrders);
-  routes.get("/allPendingOrders", ResquestController.AllPendingOrders);
-  routes.get("/deleteOrder/:id", ResquestController.Delete);
+  routes.get(
+    "/finalizeOrder/:id",
+    ValidationToken,
+    ResquestController.Finalize
+  );
+  routes.get(
+    "/allFinishedOrders",
+    ValidationToken,
+    ResquestController.AllFinishedOrders
+  );
+  routes.get(
+    "/allPendingOrders",
+    ValidationToken,
+    ResquestController.AllPendingOrders
+  );
+  routes.get("/deleteOrder/:id", ValidationToken, ResquestController.Delete);
   server.use(routes);
 };

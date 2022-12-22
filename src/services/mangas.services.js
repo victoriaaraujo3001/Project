@@ -45,14 +45,14 @@ class MangasServices {
     return favorite;
   }
   async Favorite(id_user, id_manga, actionFavorite) {
-    const favorite = await FavoritesMangas(id_user, id_manga);
-
-    if (actionFavorite == 'true') {
-        return  await this.DisfavorManga(id_manga, id_user);
+    const favorite = await FavoritesMangas(id_user);
+    
+    if (actionFavorite == "true") {
+      return await this.DisfavorManga(id_manga, id_user);
     }
 
     if (!favorite.length) {
-        await favorites.create({
+      await favorites.create({
         id_user: id_user,
         id_manga: id_manga,
         status: 1,

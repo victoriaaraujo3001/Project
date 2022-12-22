@@ -1,4 +1,5 @@
 const FindRequest = require("../repositories/findAllRequest");
+const InfoOrder = require("../repositories/InfoOrder");
 const pedidos = require("../schemas/requests");
 
 class RequestServices {
@@ -24,20 +25,11 @@ class RequestServices {
       total_compra: total_compra,
       status: 1,
     });
-    console.log(
-      "🚀 ~ file: requests.services.js:23 ~ RequestServices ~ AddRequest ~ register",
-      register
-    );
     return register;
   }
-  async FinalizeOrder(id) {
-    const finalizeOrder = await pedidos.update(
-      {
-        status: 3,
-      },
-      { where: { id_pedido: id } }
-    );
-    return finalizeOrder;
+  async FinalizeOrder(id_pedido, id_user) {
+    const finalize = InfoOrder(id_pedido, id_user);
+    return finalize;
   }
   async PendingOrders() {
     const pendingOrder = await pedidos.findAll({ where: { status: 1 } });
@@ -55,6 +47,9 @@ class RequestServices {
       { where: { id_pedido: id } }
     );
     return deleteOrder;
+  }
+  async FindPedido(){
+
   }
 }
 
