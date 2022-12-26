@@ -1,5 +1,5 @@
 const requestServices = require("../services/requests.services");
-
+var mercadopago = require("mercadopago");
 class RequestsControllers {
   async listRequests(req, res, next) {
     try {
@@ -15,7 +15,7 @@ class RequestsControllers {
   async AddRequests(req, res, next) {
     try {
       const { id_user } = req.infoToken;
-      const addRequest = await requestServices.AddRequest(id_user,req.body);
+      const addRequest = await requestServices.AddRequest(id_user, req.body);
       res.status(201).send({ message: "Pedido adicionado com sucesso" });
     } catch (error) {
       res
@@ -25,9 +25,10 @@ class RequestsControllers {
   }
   async Finalize(req, res, next) {
     try {
-      const { id } = req.params;
-      const finalize = await requestServices.FinalizeOrder(id);
-      res.status(200).send({ message: "Pedido finalizado com sucesso" });
+      const { id_pedido } = req.params;
+      const { id_user } = req.infoToken;
+      const finalize = await requestServices.FinalizeOrder(id_pedido, id_user);
+      res.status(200).send(finalize);
     } catch (error) {
       res
         .status(error.status || 500)
@@ -64,6 +65,19 @@ class RequestsControllers {
         .status(error.status || 500)
         .send({ message: error.message, description: error.description });
     }
+  }
+  async Payment(req, res, next) {
+    mercadopago.configurations.setAccessToken(req.infoToken);
+
+    mercadopago.payment
+      .save(req.body)
+      .then(function (response) {
+        const { status, status_detail, id } = response.body;
+        res.status(response.status).json({ status, status_detail, id });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 }
 

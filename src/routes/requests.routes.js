@@ -11,7 +11,7 @@ module.exports = (server, routes) => {
   );
   routes.get("/requests", ValidationToken, ResquestController.listRequests);
   routes.get(
-    "/finalizeOrder/:id",
+    "/finalizeOrder/:id_pedido",
     ValidationToken,
     ResquestController.Finalize
   );

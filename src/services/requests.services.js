@@ -28,6 +28,12 @@ class RequestServices {
     return register;
   }
   async FinalizeOrder(id_pedido, id_user) {
+    const finalizeOrder = await pedidos.update(
+      {
+        status: 3,
+      },
+      { where: { id_pedido: id_pedido } }
+    );
     const finalize = InfoOrder(id_pedido, id_user);
     return finalize;
   }
@@ -48,9 +54,7 @@ class RequestServices {
     );
     return deleteOrder;
   }
-  async FindPedido(){
-
-  }
+  async FindPedido() {}
 }
 
 module.exports = new RequestServices();
