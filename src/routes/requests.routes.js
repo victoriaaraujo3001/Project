@@ -32,6 +32,6 @@ module.exports = (server, routes) => {
     ValidationToken,
     ResquestController.FindOrderById
   );
-  routes.get("/payment/:nome/:total", Payment);
+  routes.post("/payment/:nome", Payment);
   server.use(routes);
 };

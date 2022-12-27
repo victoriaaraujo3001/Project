@@ -6,7 +6,8 @@ async function FindOneRequest(id_user, id) {
     `SELECT 
     t1.*,
     t2.*,
-    t3.*
+    t3.*,
+    t2.nome
     FROM pedidos AS t1
     JOIN mangas  AS t2   ON t1.id_manga = t2.id
     JOIN users   AS t3   ON t1.id_user  = t3.id
