@@ -21,7 +21,6 @@ class UserControllers {
       res
         .status(error.status || 404)
         .send({ message: "Usuário não encontrado/inválido" });
-      console.log(error.message);
     }
   }
 }

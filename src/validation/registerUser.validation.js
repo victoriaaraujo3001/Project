@@ -3,6 +3,14 @@ const Joi = require("joi");
 async function ValidadeRegistration(req, res, next) {
   try {
     const authSchema = Joi.object({
+      nome: Joi.string().empty().required().messages({
+        "string.empty": `"Nome" cannot be empty`,
+        "any.required": `"Nome" is required`,
+      }),
+      tel: Joi.number().integer().min(9).empty().required().messages({
+        "string.empty": `"Login" cannot be empty`,
+        "any.required": `"Login" is required`,
+      }),
       login: Joi.string().empty().required().messages({
         "string.empty": `"Login" cannot be empty`,
         "any.required": `"Login" is required`,
