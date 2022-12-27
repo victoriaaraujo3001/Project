@@ -12,6 +12,8 @@ const users = sequelize.define(
     },
     login: DataTypes.STRING,
     email: DataTypes.STRING,
+    nome: DataTypes.STRING,
+    telefone: DataTypes.INTEGER,
     password: DataTypes.STRING,
     status: DataTypes.INTEGER,
   },

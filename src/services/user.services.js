@@ -2,11 +2,13 @@ const users = require("../schemas/users");
 const tokenServices = require("../services/token.services");
 
 class UserServices {
-  async InsertUserService({ login, email, password }) {
+  async InsertUserService({ login, email, password, nome, tel }) {
     const user = await users.create({
       login: login,
       email: email,
       password: password,
+      nome: nome,
+      telefone: tel,
       status: "1",
     });
     return { login: user.login, email: user.email };
