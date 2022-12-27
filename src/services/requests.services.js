@@ -1,4 +1,5 @@
 const FindRequest = require("../repositories/findAllRequest");
+const FindOneRequest = require("../repositories/findOneRequest");
 const InfoOrder = require("../repositories/InfoOrder");
 const pedidos = require("../schemas/requests");
 
@@ -54,7 +55,10 @@ class RequestServices {
     );
     return deleteOrder;
   }
-  async FindPedido() {}
+  async FindOrder(id_user,id) {
+    const findOrder = await FindOneRequest(id_user,id);
+    return findOrder;
+  }
 }
 
 module.exports = new RequestServices();

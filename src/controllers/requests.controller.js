@@ -1,5 +1,4 @@
 const requestServices = require("../services/requests.services");
-var mercadopago = require("mercadopago");
 class RequestsControllers {
   async listRequests(req, res, next) {
     try {
@@ -66,18 +65,17 @@ class RequestsControllers {
         .send({ message: error.message, description: error.description });
     }
   }
-  async Payment(req, res, next) {
-    mercadopago.configurations.setAccessToken(req.infoToken);
-
-    mercadopago.payment
-      .save(req.body)
-      .then(function (response) {
-        const { status, status_detail, id } = response.body;
-        res.status(response.status).json({ status, status_detail, id });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+  async FindOrderById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { id_user } = req.infoToken;
+      const findOrder = await requestServices.FindOrder(id_user, id);
+      res.status(200).send(findOrder);
+    } catch (error) {
+      res
+        .status(error.status || 404)
+        .send({ message: error.message, description: error.description });
+    }
   }
 }
 

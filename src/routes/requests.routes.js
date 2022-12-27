@@ -1,4 +1,5 @@
 const ResquestController = require("../controllers/requests.controller");
+const { Payment } = require("../controllers/payment.controller");
 const AddRequestValidation = require("../validation/addRequest.validation.js");
 const ValidationToken = require("../validation/token.validation");
 
@@ -26,5 +27,11 @@ module.exports = (server, routes) => {
     ResquestController.AllPendingOrders
   );
   routes.get("/deleteOrder/:id", ValidationToken, ResquestController.Delete);
+  routes.get(
+    "/findOrder/:id",
+    ValidationToken,
+    ResquestController.FindOrderById
+  );
+  routes.get("/payment/:nome/:total", Payment);
   server.use(routes);
 };
