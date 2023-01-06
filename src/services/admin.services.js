@@ -1,6 +1,7 @@
 const md5 = require("md5");
 const admin = require("../schemas/admin");
 const tokenServices = require("./token.services");
+const Errors = require("../app/errors/index.error");
 
 class AdminServices {
   async RegisterAdmin({ login, email, password, nome, tel }) {
@@ -23,9 +24,9 @@ class AdminServices {
       where: { login: login, password: encryptedPassword, status: 1 },
     });
 
-    // if(uniqueUser.status !== 1){
-    //   throw new Error("")
-    // }
+    if (uniqueUser.status !== 1) {
+      throw new Errors.AuthInvalid(403);
+    }
     const tokenAdmin = await tokenServices.generateToken({
       id_user: uniqueUser.id,
       login: uniqueUser.login,
