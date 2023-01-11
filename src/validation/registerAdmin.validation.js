@@ -7,7 +7,7 @@ async function ValidadeRegistration(req, res, next) {
         "string.empty": `"Nome" cannot be empty`,
         "any.required": `"Nome" is required`,
       }),
-      tel: Joi.number().min(9).max(11).empty().required().messages({
+      tel: Joi.number().min(9).empty().required().messages({
         "string.empty": `"Login" cannot be empty`,
         "any.required": `"Login" is required`,
       }),
