@@ -1,13 +1,12 @@
 const md5 = require("md5");
 const admin = require("../schemas/admin");
 const tokenServices = require("./token.services");
-const Errors = require("../app/errors/index.error");
 
 class AdminServices {
   async RegisterAdmin({ login, email, password, nome, tel }) {
     const encryptedPassword = md5(password);
 
-    const user = await admin.create({
+    const adminRegister = await admin.create({
       login: login,
       email: email,
       password: encryptedPassword,
@@ -15,24 +14,28 @@ class AdminServices {
       telefone: tel,
       status: "1",
     });
-    return { login: user.login, email: user.email };
+    return {
+      nome: adminRegister.nome,
+      login: adminRegister.login,
+      email: adminRegister.email,
+    };
   }
   async FindByUser({ login, password }) {
     const encryptedPassword = md5(password);
 
-    const uniqueUser = await admin.findOne({
-      where: { login: login, password: encryptedPassword, status: 1 },
+    const findAdmin = await admin.findOne({
+      where: { login: login, password: encryptedPassword},
     });
 
-    if (uniqueUser.status !== 1) {
-      throw new Errors.AuthInvalid(403);
-    }
+    if (findAdmin.dataValues.status !== 1) {
+      throw new Error("")
+    } 
     const tokenAdmin = await tokenServices.generateToken({
-      id_user: uniqueUser.id,
-      login: uniqueUser.login,
+      id: findAdmin.id,
+      login: findAdmin.login,
     });
 
-    return { user: { id: uniqueUser.id, login: uniqueUser.login }, tokenAdmin };
+    return { user: { id: findAdmin.id, login: findAdmin.login }, tokenAdmin };
   }
 }
 

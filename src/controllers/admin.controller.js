@@ -3,9 +3,9 @@ const AdminServices = require("../services/admin.services");
 class AdminControllers {
   async Register(req, res, next) {
     try {
-      const admin = await AdminServices.RegisterAdmin(req.bodyadmin
-      res.status(201).send({ message: "Usuario criado com sucesso" });
-      return user;
+      const admin = await AdminServices.RegisterAdmin(req.body);
+
+      res.status(201).send({ message: "Usuario criado com sucesso", admin });
     } catch (error) {
       res.status(500 || error.status).send({ message: error.message });
     }

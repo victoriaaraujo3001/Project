@@ -2,7 +2,7 @@ const sequelize = require("../config/configSequelize");
 const { DataTypes } = require("sequelize");
 
 const admin = sequelize.define(
-    "user_admin",
+    "user_admins",
     {
       id: {
         allowNull: false,
