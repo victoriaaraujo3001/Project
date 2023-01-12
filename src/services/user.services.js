@@ -28,7 +28,7 @@ class UserServices {
       });
       return { login: user.login, email: user.email };
     } else {
-      return { dados: true, message: "Usuário já cadastrado" };
+      return { dados: true };
     }
   }
   async FindByUser({ login, password }) {
