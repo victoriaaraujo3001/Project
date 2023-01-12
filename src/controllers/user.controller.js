@@ -5,6 +5,12 @@ class UserControllers {
     try {
       const user = await UserServices.InsertUserService(req.body);
 
+      if (user == false) {
+        res
+          .status(203)
+          .send({ message: "Usuario já cadastrado, por favor faça seu login" });
+      }
+
       res.status(201).send({ message: "Usuario criado com sucesso" });
       return user;
     } catch (error) {

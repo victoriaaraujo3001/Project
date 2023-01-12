@@ -6,15 +6,30 @@ class UserServices {
   async InsertUserService({ login, email, password, nome, tel }) {
     const encryptedPassword = md5(password);
 
-    const user = await users.create({
-      login: login,
-      email: email,
-      password: encryptedPassword,
-      nome: nome,
-      telefone: tel,
-      status: "1",
+    const findUser = await users.findOne({
+      where: {
+        login: login,
+        email: email,
+        password: encryptedPassword,
+        nome: nome,
+        telefone: tel,
+        status: "1",
+      },
     });
-    return { login: user.login, email: user.email };
+
+    if (findUser == null) {
+      const user = await users.create({
+        login: login,
+        email: email,
+        password: encryptedPassword,
+        nome: nome,
+        telefone: tel,
+        status: "1",
+      });
+      return { login: user.login, email: user.email };
+    } else {
+      return false;
+    }
   }
   async FindByUser({ login, password }) {
     const encryptedPassword = md5(password);
