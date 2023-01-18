@@ -21,10 +21,21 @@ class AdminControllers {
         .send({ message: "Usuário não encontrado/inválido" });
     }
   }
+  async FindOneAdmin(req, res, next) {
+    try {
+      const { id } = req.params;
+      const findAdmin = await AdminServices.FindOneAdmin(id);
+
+      res.status(200).send(findAdmin);
+    } catch (error) {
+      res
+        .status(error.status || 404)
+        .send({ message: "Usuário não encontrado/inválido" });
+    }
+  }
   async AllRequestsAdmin(req, res, next) {
     try {
       const allRequests = await AdminServices.AllRequests();
-
       res.status(200).send(allRequests);
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
@@ -43,11 +54,9 @@ class AdminControllers {
   }
   async AllRequestsAdminByUser(req, res, next) {
     try {
-      const { user } = req.params;
+      const allRequestByUser = await AdminServices.AllRequests();
 
-      const oneRequestByUser = await AdminServices.OneRequests(user);
-
-      res.status(200).send(oneRequestByUser);
+      res.status(200).send({ message: "oi"});
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
     }

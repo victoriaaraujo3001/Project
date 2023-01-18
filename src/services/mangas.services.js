@@ -21,7 +21,7 @@ class MangasServices {
     const mangaById = await mangas.findByPk(id);
     return mangaById;
   }
-  async RegisterManga({ nome, preco, qntd_estoque, categoria }) {
+  async RegisterManga({ nome, preco, qntd_estoque, categoria, desconto, valorDesconto }) {
     const code =
       Math.floor(Math.random() * (9999 - 1000 + 9999 - 1000 + 9999 - 1000)) +
       9999;
@@ -31,6 +31,8 @@ class MangasServices {
       preco: preco,
       qntd_estoque: qntd_estoque,
       id_categoria: categoria,
+      desconto: desconto, 
+      valorDesconto: valorDesconto,
       cod_livro: code,
       status: 1,
     });

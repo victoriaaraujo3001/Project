@@ -8,7 +8,8 @@ module.exports = (server, routes) => {
     AdminController.Register
   );
   routes.post("/admin/auth", AdminController.FindUser);
-  routes.get("/admin/allRequests", AdminController.AllRequestsAdmin);
+  routes.get("/admin/:id", AdminController.FindOneAdmin);
+  routes.get("/allRequests", AdminController.AllRequestsAdmin);
   routes.get("/admin/oneRequest/:pedido", AdminController.OneRequestsAdmin);
   routes.get("/admin/allRequests/:user", AdminController.AllRequestsAdminByUser);
   server.use(routes);
