@@ -9,6 +9,7 @@ module.exports = (server, routes) => {
   );
   routes.post("/admin/auth", AdminController.FindUser);
   routes.get("/admin/:id", AdminController.FindOneAdmin);
+  routes.get("/all", AdminController.All);
   routes.get("/allRequests", AdminController.AllRequestsAdmin);
   routes.get("/admin/oneRequest/:pedido", AdminController.OneRequestsAdmin);
   routes.get("/admin/allRequests/:user", AdminController.AllRequestsAdminByUser);

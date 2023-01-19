@@ -42,22 +42,22 @@ class AdminServices {
     const oneAdmin = await admin.findOne({ where: { id: id } });
     return oneAdmin;
   }
+  async AllAdmin(){
+    const allAdmin = await admin.findAndCountAll();
+    return allAdmin;
+  }
   async AllRequests() {
     const all = await requests.findAll();
     return all
   }
-  // async OneRequests(pedido) {
-  //   console.log("aqui 2")
-
-  //   const one = await requests.findOne({ id_pedido: pedido });
-  //   return one;
-  // }
-  // async AllRequestsByUser(id) {
-  //   console.log("aqui 3")
-
-  //   const one = await requests.findAll({ id_user: id });
-  //   return one;
-  // }
+  async OneRequests(pedido) {
+    const one = await requests.findOne({ id_pedido: pedido });
+    return one;
+  }
+  async AllRequestsByUser(id) {
+    const one = await requests.findAll({ id_user: id });
+    return one;
+  }
 }
 
 module.exports = new AdminServices();

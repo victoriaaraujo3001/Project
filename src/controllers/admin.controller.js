@@ -33,6 +33,14 @@ class AdminControllers {
         .send({ message: "Usuário não encontrado/inválido" });
     }
   }
+  async All(req, res, next) {
+    try {
+      const allAdmin = await AdminServices.AllAdmin();
+      res.status(200).send(allAdmin);
+    } catch (error) {
+      res.status(error.status || 500).send({ message: error.message });
+    }
+  }
   async AllRequestsAdmin(req, res, next) {
     try {
       const allRequests = await AdminServices.AllRequests();
@@ -56,7 +64,7 @@ class AdminControllers {
     try {
       const allRequestByUser = await AdminServices.AllRequests();
 
-      res.status(200).send({ message: "oi"});
+      res.status(200).send({ message: "oi" });
     } catch (error) {
       res.status(error.status || 500).send({ message: error.message });
     }
