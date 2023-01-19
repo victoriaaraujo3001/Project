@@ -1,12 +1,13 @@
 const Disfavor = require("../repositories/disfavor");
 const FavoritesMangas = require("../repositories/favorites");
 const Favorites = require("../repositories/favorites");
+const Mangas = require("../repositories/mangas");
 const favorites = require("../schemas/favorites");
 const mangas = require("../schemas/mangas");
 
 class MangasServices {
   async AllMangas() {
-    const allMangas = await mangas.findAll();
+    const allMangas = await Mangas();
     return allMangas;
   }
   async FindMangaByCod(cod, id_user) {
