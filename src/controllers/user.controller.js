@@ -29,6 +29,18 @@ class UserControllers {
         .send({ message: "Usuário não encontrado/inválido" });
     }
   }
+
+  async Users(req, res, next) {
+    try {
+      const allUsers = await UserServices.AllUser();
+
+      res.status(200).send(allUsers);
+    } catch (error) {
+      res
+        .status(error.status || 500)
+        .send({ message: "Ação inválida" });
+    }
+  }
 }
 
 module.exports = new UserControllers();

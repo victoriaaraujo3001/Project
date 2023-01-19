@@ -45,6 +45,10 @@ class UserServices {
 
     return { user: { id: uniqueUser.id, login: uniqueUser.login }, token };
   }
+  async AllUser(){
+    const allUsers = await users.findAndCountAll()
+    return allUsers;
+  }
 }
 
 module.exports = new UserServices();
